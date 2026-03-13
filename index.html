@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelfsmart | Intelligent Book Cataloging</title>
+    <meta name="description"
+        content="Automatically catalog your entire library with a single photo. AI-powered book extraction and ISBN lookup.">
+    <link rel="icon" href="public/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Shelfsmart</h1>
+                <p>The AI-powered curator for your home library. Scan your shelves, extract metadata, and export your
+                    collection in seconds.</p>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://buy.stripe.com/cNifZj8c05cb0mn5gI8g000" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Pre-order Now</a>
+                    <a href="#demo" class="btn btn-secondary">Demo</a>
+                </div>
+                <p style="font-size: 0.9rem; margin-top: 20px; color: var(--text-dim);">Pre-order to get early beta
+                    access + 3 months of Pro when we launch</p>
+            </div>
+        </section>
+
+        <section id="demo" class="demo-section">
+            <h2 style="font-size: 2.5rem; margin-bottom: 50px; text-align: center;">Demo</h2>
+
+            <div class="demo-grid">
+                <!-- Left: Upload/Scan -->
+                <div class="card">
+                    <h3 class="m-b-20">1. Upload your shelf</h3>
+                    <div class="upload-zone" id="uploadZone" role="button" tabindex="0"
+                        aria-label="Drop a photo of your bookshelf here">
+                        <div class="scan-line"></div>
+                        <div id="uploadPlaceholder">
+                            <i aria-hidden="true">📸</i>
+                            <p>Drop a photo of your bookshelf here</p>
+                        </div>
+                        <div id="scanningStatus" class="hidden">
+                            <p>Analyzing book spines...</p>
+                            <div id="extractionCount"
+                                style="font-size: 3rem; font-weight: 700; color: var(--primary); margin: 20px 0;"
+                                aria-live="polite">0</div>
+                            <p>Books detected</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Results -->
+                <div class="card">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3>2. Your Catalog</h3>
+                        <div class="export-group">
+                            <button id="exportBtn" class="btn btn-primary"
+                                style="padding: 8px 16px; font-size: 0.8rem; opacity: 0.5;" disabled
+                                onclick="toggleExportMenu()">
+                                Export Catalog ⌵
+                            </button>
+                            <div class="export-menu" id="exportMenu" role="menu">
+                                <button class="export-item" onclick="handleExport('CSV')" role="menuitem">
+                                    <i aria-hidden="true">📄</i> Export to CSV
+                                </button>
+                                <button class="export-item" onclick="handleExport('Goodreads')" role="menuitem">
+                                    <i aria-hidden="true">📚</i> Sync to Goodreads
+                                </button>
+                                <button class="export-item" onclick="handleExport('LibraryThing')" role="menuitem">
+                                    <i aria-hidden="true">🏷️</i> Sync to LibraryThing
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="catalog-container">
+                        <table id="bookTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Author</th>
+                                    <th scope="col">ISBN-13</th>
+                                    <th scope="col">Added</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr id="emptyRow">
+                                    <td colspan="4" style="text-align: center; color: var(--text-dim); padding: 40px;">
+                                        No books cataloged yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2 style="font-size: 2.5rem; margin-bottom: 50px; text-align: center;">Everything you need to catalog your
+                library</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Upload Photos</h3>
+                    <p>Upload photos of your bookshelves. Our system is designed to handle wide shots and varied
+                        lighting to capture every spine.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>AI-Powered Intelligence</h3>
+                    <p>We use AI to get the exact information in your book, like name, author, ISBN and other data you
+                        need instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Catalog Export</h3>
+                    <p>Your data, your rules. Export to CSV, JSON, or directly to Goodreads and StoryGraph with one
+                        click.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 style="font-size: 2.5rem; margin-bottom: 50px; text-align: center;">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"
+                    aria-controls="faq-answer-1" id="faq-1">
+                    <span>What does pre-ordering do?</span>
+                    <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-1">
+                    Pre-ordering secures your spot in our early beta wave and includes a 3-month Pro credit at launch.
+                    Please note there is no immediate product access today; your $29 investment directly funds the final
+                    stages of development.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"
+                    aria-controls="faq-answer-2" id="faq-2">
+                    <span>What if you don't reach the launch goal?</span>
+                    <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-2">
+                    Your investment is 100% risk-free. If we don't reach our pre-order threshold to fund full
+                    development, we will issue a full refund to all pre-order customers within 7 days of the decision.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"
+                    aria-controls="faq-answer-3" id="faq-3">
+                    <span>Is my library data private?</span>
+                    <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-3">
+                    Yes. Shelfsmart only uses your photos to extract book metadata. Your images are processed securely
+                    and your data belongs to you—we never sell it to third parties or use it to train models.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"
+                    aria-controls="faq-answer-4" id="faq-4">
+                    <span>What formats can I export my catalog to?</span>
+                    <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" id="faq-answer-4" role="region" aria-labelledby="faq-4">
+                    Once launched, Shelfsmart will support direct sync with Goodreads and LibraryThing, as well as a
+                    universal CSV export for use in Excel or other cataloging tools.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="pre-order-footer">
+            <h2>Ready to organize your library?</h2>
+            <p class="m-t-20 m-b-20" style="color: var(--text-dim);">Pre-order now to get early beta access and 3 months
+                of Pro when we launch.</p>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+                <a href="https://buy.stripe.com/cNifZj8c05cb0mn5gI8g000" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Pre-order Now</a>
+                <a href="#demo" class="btn btn-secondary">Demo</a>
+            </div>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-dim);">© 2026 Shelfsmart. Built by <a href="https://albertjoseph0.github.io/" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: underline;">Albert Joseph</a>.</p>
+    </footer>
+
+    <div class="modal-overlay" id="imageModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <h2 id="modalTitle" style="font-size: 2rem; margin-bottom: 10px;">Select a Sample Shelf</h2>
+            <p style="color: var(--text-dim);">Pick an image to see how Shelfsmart extracts your library details
+                instantly.</p>
+
+            <div class="sample-grid">
+                <div class="sample-item" tabindex="0" role="button" onclick="selectSample(1)" onkeydown="handleSampleKey(event, 1)">
+                    <img src="./bookshelf-pics/1.jpeg" alt="Bookshelf with business and history titles">
+                    <span>Business & History</span>
+                </div>
+                <div class="sample-item" tabindex="0" role="button" onclick="selectSample(2)" onkeydown="handleSampleKey(event, 2)">
+                    <img src="./bookshelf-pics/2.jpeg" alt="Bookshelf with philosophy and finance titles">
+                    <span>Philosophy & Finance</span>
+                </div>
+                <div class="sample-item" tabindex="0" role="button" onclick="selectSample(3)" onkeydown="handleSampleKey(event, 3)">
+                    <img src="./bookshelf-pics/3.jpeg" alt="Bookshelf with startup strategy titles">
+                    <span>Startup Strategy</span>
+                </div>
+                <div class="sample-item" tabindex="0" role="button" onclick="selectSample(4)" onkeydown="handleSampleKey(event, 4)">
+                    <img src="./bookshelf-pics/5.jpeg" alt="Bookshelf with psychology and creativity titles">
+                    <span>Psychology & Creativity</span>
+                </div>
+            </div>
+
+            <div class="m-t-20" style="text-align: center;">
+                <button class="btn" style="color: var(--text-dim); text-decoration: underline;"
+                    onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
