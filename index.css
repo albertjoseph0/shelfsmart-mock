@@ -504,3 +504,168 @@ footer {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ===== Mobile responsiveness fixes ===== */
+
+/* P0: Prevent demo cards from expanding wider than the viewport */
+.demo-grid > * {
+    min-width: 0;
+}
+
+.card {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.catalog-container {
+    max-width: 100%;
+    min-width: 0;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+}
+
+@media (max-width: 768px) {
+    .demo-section {
+        padding: 64px 16px;
+    }
+
+    .demo-grid {
+        gap: 20px;
+    }
+
+    .card {
+        padding: 24px;
+        border-radius: 20px;
+    }
+
+    .upload-zone {
+        padding: 40px 16px;
+    }
+
+    /* Catalog header row: stack on mobile */
+    .catalog-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px;
+        margin-bottom: 16px !important;
+    }
+
+    .export-group {
+        display: flex;
+        width: 100%;
+    }
+
+    #exportBtn {
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        padding: 10px 14px !important;
+        font-size: 0.85rem !important;
+    }
+
+    .export-menu {
+        left: 0;
+        right: auto;
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Mobile table: scroll horizontally inside the card */
+    #bookTable {
+        width: max-content;
+        min-width: 560px;
+    }
+
+    #bookTable th,
+    #bookTable td {
+        padding: 12px 10px;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    #bookTable th:nth-child(1),
+    #bookTable td:nth-child(1) {
+        min-width: 150px;
+    }
+
+    #bookTable th:nth-child(2),
+    #bookTable td:nth-child(2) {
+        min-width: 140px;
+    }
+
+    #bookTable th:nth-child(3),
+    #bookTable td:nth-child(3) {
+        min-width: 132px;
+    }
+
+    #bookTable th:nth-child(4),
+    #bookTable td:nth-child(4) {
+        min-width: 96px;
+    }
+
+    #emptyRow td {
+        white-space: normal;
+        padding: 24px !important;
+        text-align: center;
+    }
+
+    /* Override inline h2 sizes */
+    .demo-section > h2,
+    .features > h2,
+    .faq-section > h2,
+    .pre-order-footer h2,
+    #modalTitle {
+        font-size: 2rem !important;
+        line-height: 1.15;
+        margin-bottom: 32px !important;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: calc(100% - 24px);
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 24px 20px;
+        border-radius: 24px;
+    }
+
+    .sample-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .sample-item {
+        aspect-ratio: 16 / 10;
+    }
+}
+
+@media (max-width: 480px) {
+    .demo-section {
+        padding: 56px 12px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .upload-zone {
+        padding: 32px 14px;
+    }
+
+    .demo-section > h2,
+    .features > h2,
+    .faq-section > h2,
+    .pre-order-footer h2,
+    #modalTitle {
+        font-size: 1.75rem !important;
+        margin-bottom: 24px !important;
+    }
+
+    #bookTable th,
+    #bookTable td {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+}

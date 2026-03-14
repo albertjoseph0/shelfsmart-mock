@@ -41,6 +41,29 @@ const shelfData = {
 
 let currentBooks = [];
 
+// Add class hook for catalog header row (for mobile CSS stacking)
+const catalogHeader = exportBtn?.closest('.card')?.querySelector('div');
+if (catalogHeader) catalogHeader.classList.add('catalog-header');
+
+// Mobile-friendly upload copy
+const pointerMedia = window.matchMedia('(hover: none), (pointer: coarse)');
+
+function updateUploadCopy() {
+    const isTouchLike = pointerMedia.matches;
+    const placeholderText = uploadPlaceholder?.querySelector('p');
+    const visibleText = isTouchLike
+        ? 'Tap to select a shelf photo'
+        : 'Click to select a shelf photo';
+    const ariaText = isTouchLike
+        ? 'Tap to select a photo of your bookshelf'
+        : 'Click to select a photo of your bookshelf';
+    if (placeholderText) placeholderText.textContent = visibleText;
+    if (uploadZone) uploadZone.setAttribute('aria-label', ariaText);
+}
+
+updateUploadCopy();
+pointerMedia.addEventListener('change', updateUploadCopy);
+
 uploadZone.addEventListener('click', () => {
     if (!uploadZone.classList.contains('is-scanning')) {
         imageModal.classList.add('active');
